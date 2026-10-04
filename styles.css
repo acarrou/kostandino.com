@@ -137,6 +137,13 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
 [data-theme='night'] .merch img { filter: invert(1); mix-blend-mode: screen; }
 .hero > :not(.doodles) { position: relative; }
 .hero-kicker { color: var(--accent); font-size: clamp(1.5rem, 3.5vw, 2.2rem); rotate: -2deg; }
+.hero-kicker { min-height: 1.1em; }
+.caret {
+  display: inline-block; width: 2px; height: .9em; margin-left: 3px;
+  background: currentColor; vertical-align: -.1em;
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
 .hero-title {
   font-size: clamp(3.2rem, 14.5vw, 15rem);
   color: var(--pop);

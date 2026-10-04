@@ -8,18 +8,43 @@ const LINKS = {
   instagram: 'https://www.instagram.com/kostandno/',
 };
 
-// One entry per release, newest first. `links` overrides LINKS for that release.
+// One entry per release, newest first. Each release only shows buttons for
+// the services listed in its `links`, so every button goes straight to that song.
 const APPLE = 'https://music.apple.com/us/album/';
+const SPOTIFY = 'https://open.spotify.com/track/';
+// TODO: Planet, Aurora and Demo My Heart use a Spotify search until Kosta sends their direct links.
+const SPOTIFY_SEARCH = 'https://open.spotify.com/search/';
 const RELEASES = [
-  { title: 'Willow', note: 'single · 2026', img: 'willow.jpg', links: { apple: APPLE + 'willow-single/6794258295' } },
-  { title: 'Way Back', note: 'single · 2025', img: 'way-back.jpg', links: { apple: APPLE + 'way-back-single/1797192500' } },
-  { title: 'Showing Off', note: 'single · 2024', img: 'showing-off.jpg', links: { apple: APPLE + 'showing-off-single/1778623211' } },
-  { title: 'Picky', note: 'single · 2023', img: 'picky.jpg', links: { apple: APPLE + 'picky-single/1717760333' } },
-  { title: 'Bella’s Ranger', note: 'single · 2023', img: 'bellas-ranger.jpg', links: { apple: APPLE + 'bellas-ranger-single/1675474994' } },
-  { title: 'Planet', note: 'single · 2022', img: 'planet.jpg', links: { apple: APPLE + 'planet-single/1644307799' } },
-  { title: 'Aurora', note: 'album · 9 songs · 2022', img: 'aurora.jpg', links: { apple: APPLE + 'aurora/1619951307' } },
-  { title: '2 Years', note: 'single · 2021', img: '2-years.jpg', links: { apple: APPLE + '2-years-single/1573282063' } },
-  { title: 'Demo My Heart', note: 'single · 2021', img: 'demo-my-heart.jpg', links: { apple: APPLE + 'demo-my-heart-single/1568477594' } },
+  { title: 'Willow', note: 'single · 2026', img: 'willow.jpg',
+    links: { spotify: SPOTIFY + '4Q93FwXEhfIGorU4pDBz6H', apple: APPLE + 'willow-single/6794258295' } },
+  { title: 'Way Back', note: 'single · 2025', img: 'way-back.jpg',
+    links: { spotify: SPOTIFY + '5uOQFMkOszuv7YzCdc0JRe', apple: APPLE + 'way-back-single/1797192500' } },
+  { title: 'Showing Off', note: 'single · 2024', img: 'showing-off.jpg',
+    links: { spotify: SPOTIFY + '5baDKmhhPVbR0tg2s16eMX', apple: APPLE + 'showing-off-single/1778623211' } },
+  { title: 'Picky', note: 'single · 2023', img: 'picky.jpg',
+    links: { spotify: SPOTIFY + '5NpYhIiYcllEQnmgrbIWVt', apple: APPLE + 'picky-single/1717760333' } },
+  { title: 'Bella’s Ranger', note: 'single · 2023', img: 'bellas-ranger.jpg',
+    links: { spotify: SPOTIFY + '5KoyYJvoPQU63aAPzqw44L', apple: APPLE + 'bellas-ranger-single/1675474994' } },
+  { title: 'Planet', note: 'single · 2022', img: 'planet.jpg',
+    links: { spotify: SPOTIFY_SEARCH + 'Kostandino%20Planet', apple: APPLE + 'planet-single/1644307799' } },
+  { title: 'Aurora', note: 'album · 9 songs · 2022', img: 'aurora.jpg',
+    links: { spotify: SPOTIFY_SEARCH + 'Kostandino%20Aurora', apple: APPLE + 'aurora/1619951307' } },
+  { title: '2 Years', note: 'single · 2021', img: '2-years.jpg',
+    links: { spotify: SPOTIFY + '1d84yhOE6MAA1qA1ucngQm', apple: APPLE + '2-years-single/1573282063' } },
+  { title: 'Demo My Heart', note: 'single · 2021', img: 'demo-my-heart.jpg',
+    links: { spotify: SPOTIFY_SEARCH + 'Kostandino%20Demo%20My%20Heart', apple: APPLE + 'demo-my-heart-single/1568477594',
+      soundcloud: 'https://soundcloud.com/kosta_sweezy/demo-my-heart' } },
+];
+
+// Lines that rotate under the name in the hero, typed out and backspaced.
+// All Kosta's own words: his Instagram bio, a post, and text from his covers.
+const TAGLINES = [
+  'certified overthinker with a melody',
+  'it’s never too late',
+  'wild and free',
+  'time flys',
+  'not my phone',
+  'im lame',
 ];
 // -----------------------------------------------------------------------
 
@@ -77,7 +102,8 @@ function openSheet(r) {
   sheet.querySelector('#sheet-title').textContent = r.title;
   sheet.querySelector('.sheet-note').textContent = r.note;
   sheet.querySelectorAll('[data-link]').forEach((a) => {
-    a.href = (r.links && r.links[a.dataset.link]) || LINKS[a.dataset.link];
+    a.hidden = !r.links[a.dataset.link];
+    a.href = r.links[a.dataset.link] || '#';
   });
   sheet.showModal();
 }
@@ -102,6 +128,22 @@ if (saved) setTheme(saved);
 document.querySelector('.theme-toggle').addEventListener('click', () => {
   setTheme(isNight() ? 'day' : 'night');
 });
+
+// Hero tagline typewriter
+const typed = document.querySelector('.typed');
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  let line = 0, chars = TAGLINES[0].length, deleting = true;
+  const tick = () => {
+    const text = TAGLINES[line];
+    chars += deleting ? -1 : 1;
+    typed.textContent = text.slice(0, chars);
+    let wait = deleting ? 28 : 55;
+    if (!deleting && chars === text.length) { deleting = true; wait = 2400; }
+    if (deleting && chars === 0) { deleting = false; line = (line + 1) % TAGLINES.length; wait = 350; }
+    setTimeout(tick, wait);
+  };
+  setTimeout(tick, 2600);
+}
 
 // Zobie the mascot: comments on whichever section is in view, hops when clicked,
 // and leans into the scroll.

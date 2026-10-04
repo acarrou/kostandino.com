@@ -36,43 +36,19 @@ const RELEASES = [
       soundcloud: 'https://soundcloud.com/kosta_sweezy/demo-my-heart' } },
 ];
 
-// Lines that rotate under the name in the hero, typed out and backspaced.
-// All Kosta's own words: his Instagram bio, a post, and text from his covers.
+// Lines that take turns under the name in the hero. All Kosta's own words:
+// his Instagram bio first (it stays up longest), then a post and two covers.
 const TAGLINES = [
   'certified overthinker with a melody',
   'it’s never too late',
   'wild and free',
   'time flys',
-  'not my phone',
-  'im lame',
 ];
 // -----------------------------------------------------------------------
 
 const root = document.documentElement;
 const isNight = () => root.dataset.theme === 'night';
 const coverFor = (r) => 'assets/img/covers/' + r.img;
-
-// "Simple" vs "Everything" preview. ?v=full or ?v=simple in the URL wins, so
-// either version can be shared as a link.
-function setVersion(version) {
-  root.dataset.version = version;
-  document.querySelectorAll('[data-version-btn]').forEach((b) => {
-    b.setAttribute('aria-pressed', b.dataset.versionBtn === version);
-  });
-  try { localStorage.setItem('version', version); } catch {}
-}
-let version = new URLSearchParams(location.search).get('v');
-if (version !== 'full' && version !== 'simple') {
-  try { version = localStorage.getItem('version'); } catch {}
-}
-setVersion(version === 'full' ? 'full' : 'simple');
-document.querySelectorAll('[data-version-btn]').forEach((b) => {
-  b.addEventListener('click', () => {
-    setVersion(b.dataset.versionBtn);
-    history.replaceState(null, '', `?v=${b.dataset.versionBtn}`);
-    scrollTo({ top: 0 });
-  });
-});
 
 // Releases grid
 const grid = document.querySelector('.releases');
@@ -129,20 +105,20 @@ document.querySelector('.theme-toggle').addEventListener('click', () => {
   setTheme(isNight() ? 'day' : 'night');
 });
 
-// Hero tagline typewriter
-const typed = document.querySelector('.typed');
+// Hero tagline: each line fades in, holds, and fades to the next
+const tagline = document.querySelector('.tagline');
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  let line = 0, chars = TAGLINES[0].length, deleting = true;
-  const tick = () => {
-    const text = TAGLINES[line];
-    chars += deleting ? -1 : 1;
-    typed.textContent = text.slice(0, chars);
-    let wait = deleting ? 28 : 55;
-    if (!deleting && chars === text.length) { deleting = true; wait = 2400; }
-    if (deleting && chars === 0) { deleting = false; line = (line + 1) % TAGLINES.length; wait = 350; }
-    setTimeout(tick, wait);
+  let line = 0;
+  const next = () => {
+    tagline.classList.add('out');
+    setTimeout(() => {
+      line = (line + 1) % TAGLINES.length;
+      tagline.textContent = TAGLINES[line];
+      tagline.classList.remove('out');
+      setTimeout(next, line === 0 ? 8000 : 5000);
+    }, 700);
   };
-  setTimeout(tick, 2600);
+  setTimeout(next, 8000);
 }
 
 // Zobie the mascot: comments on whichever section is in view, hops when clicked,
@@ -154,9 +130,6 @@ const SECTION_LINES = {
   latest: 'new song!!',
   music: 'tap a cover!',
   about: 'that’s my guy',
-  'zobie-section': 'hey, that’s me',
-  next: 'big plans…',
-  art: 'scroll sideways →',
   contact: 'go on, say hi',
 };
 const CLICK_LINES = ['wheee!', 'boop', 'time flys…', 'not my phone', 'again!', 'wild & free'];

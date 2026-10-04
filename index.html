@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kostandino</title>
+  <meta name="description" content="Kostandino — music, art and ZOBIE. Listen to the latest releases and flip through the sketchbook.">
+  <meta property="og:title" content="Kostandino">
+  <meta property="og:description" content="Music, art and ZOBIE.">
+  <meta property="og:image" content="assets/img/summer-vibes.jpg">
+  <link rel="icon" href="assets/zobie.svg?v=2" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png?v=2" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- Traced from Kosta's pencil sketch (Website Photos/IMG_4367.JPEG): one continuous stroke -->
+    <symbol id="zobie" viewBox="40 60 640 400">
+      <path pathLength="1" d="M268 190 C257 201 223 231 200 255 C177 279 151 312 130 335 C109 358 82 385 72 395 C85 397 120 403 150 408 C180 413 217 421 250 425 C283 429 318 431 350 430 C382 429 412 426 440 420 C468 414 497 406 520 395 C543 384 562 370 580 355 C598 340 614 322 625 305 C636 288 646 271 648 255 C650 239 646 226 640 210 C634 194 624 175 612 160 C600 145 585 130 570 120 C555 110 537 102 520 97 C503 92 487 90 470 90 C453 90 435 93 420 98 C405 103 391 111 380 122 C369 133 360 150 355 165 C350 180 347 199 347 215 C347 231 350 247 355 260 C360 273 368 286 378 295 C388 304 402 308 415 311 C428 314 442 313 455 310 C468 307 480 300 490 292 C500 284 508 271 512 260 C516 249 517 237 515 228 C513 219 508 211 500 205 C492 199 480 194 470 192 C460 190 449 189 440 190 C431 191 419 197 415 198"/>
+    </symbol>
+    <!-- Three slightly different wobbles, cycled to make the line "boil" like hand-drawn animation -->
+    <filter id="boil-1"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="1"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+    <filter id="boil-2"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="7"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+    <filter id="boil-3"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="13"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
+  </svg>
+
+  <header class="nav">
+    <a class="brand" href="#top" aria-label="Kostandino, back to top">
+      <svg class="mark"><use href="#zobie"/></svg>
+      <span>Kostandino</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#music">Music</a>
+      <a href="#about">About</a>
+      <a href="#zobie-section">Zobie</a>
+      <a href="#sketchbook">Sketchbook</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" type="button" aria-label="Switch between day and night">
+      <span class="sun">☀</span><span class="moon">☾</span>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <img class="doodles" src="assets/img/doodles.png" alt="" aria-hidden="true">
+      <p class="hand hero-kicker">songs for sun, pools &amp; falling leaves</p>
+      <h1 class="hero-title" aria-label="Kostandino">
+        <span>Kostan</span><span>dino</span>
+      </h1>
+      <div class="hero-stack" aria-hidden="true">
+        <img src="assets/img/time-flys.jpg" alt="">
+        <img src="assets/img/rabbit-hole.jpg" alt="">
+        <img src="assets/img/summer-vibes.jpg" alt="">
+      </div>
+      <div class="hero-cta">
+        <a class="btn primary" href="#music">Listen now</a>
+        <a class="btn" href="#zobie-section">Meet Zobie</a>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track"></div>
+    </div>
+
+    <section id="music" class="section">
+      <div class="section-head">
+        <h2>The music</h2>
+        <p class="hand">every cover made by hand — tap one</p>
+      </div>
+      <div class="releases"></div>
+    </section>
+
+    <section id="about" class="section about">
+      <div class="about-photo">
+        <img src="assets/img/blur-portrait.jpg" alt="Blurred, painterly portrait of Kostandino against a sunset" loading="lazy">
+        <span class="tape"></span>
+      </div>
+      <div class="about-text">
+        <h2>Hi, I'm Kosta.</h2>
+        <!-- DRAFT COPY: replace with Kosta's real bio -->
+        <p class="lead">I write the songs, I make the covers, I draw the doodles in the margins. If it's on this page, it came out of my head and my hands.</p>
+        <p>The music lives somewhere between a beach towel in July and a pile of leaves in October — sunny on top, a little bit lost underneath. I'd rather make something that feels like me than something that sounds like everyone else.</p>
+        <ul class="stickers">
+          <li>100% self-made artwork</li>
+          <li>Parle un peu français</li>
+          <li>Not my phone</li>
+          <li>Wild &amp; free</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="zobie-section" class="section zobie">
+      <div class="zobie-head">
+        <svg class="mark big"><use href="#zobie"/></svg>
+        <h2>Zobie</h2>
+        <p class="hand">the spiral behind it all</p>
+      </div>
+      <div class="zobie-grid">
+        <figure class="paper tilt-l">
+          <img src="assets/img/sketch-zobie.jpg" alt="Pencil sketches of the Zobie spiral logo and lettering" loading="lazy">
+          <figcaption class="hand">first drafts</figcaption>
+        </figure>
+        <figure class="paper merch">
+          <img src="assets/img/merch-sketch.png" alt="Hand-drawn sketch of a Zobie t-shirt" loading="lazy">
+          <figcaption class="hand">merch — on the drawing board (literally)</figcaption>
+        </figure>
+        <figure class="paper tilt-r">
+          <img src="assets/img/sketch-waves.jpg" alt="Pencil sketch of layered wave shapes" loading="lazy">
+          <figcaption class="hand">waves, probably</figcaption>
+        </figure>
+      </div>
+      <a class="btn primary" href="#contact">Tell me when merch drops</a>
+    </section>
+
+    <section id="sketchbook" class="section">
+      <div class="section-head">
+        <h2>Sketchbook</h2>
+        <p class="hand">stuff that isn't a song (yet)</p>
+      </div>
+      <div class="strip" tabindex="0" aria-label="Artwork gallery, scroll sideways">
+        <img src="assets/img/bubble.jpg" alt="Iridescent bubble floating on bright blue" loading="lazy">
+        <img src="assets/img/vortex.jpg" alt="Swirling turquoise vortex" loading="lazy">
+        <img src="assets/img/splash.jpg" alt="Red-orange liquid splash on white" loading="lazy">
+        <img src="assets/img/fall-night.jpg" alt="Fall artwork in blue and green" loading="lazy">
+        <img src="assets/img/time-flys.jpg" alt="Time Flys artwork, green line drawing on orange" loading="lazy">
+        <img src="assets/img/blur-portrait.jpg" alt="Blurred portrait" loading="lazy">
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <h2>Say hi</h2>
+      <p class="lead">Shows, collabs, merch questions, or just to tell me which cover is your favourite.</p>
+      <!-- TODO: replace with Kosta's real email + profile links (also see LINKS in script.js) -->
+      <a class="btn primary big-btn" href="mailto:hello@example.com">hello@example.com</a>
+      <ul class="socials">
+        <li><a data-link="spotify" href="#">Spotify</a></li>
+        <li><a data-link="apple" href="#">Apple Music</a></li>
+        <li><a data-link="youtube" href="#">YouTube</a></li>
+        <li><a data-link="instagram" href="#">Instagram</a></li>
+        <li><a data-link="tiktok" href="#">TikTok</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <svg class="mark"><use href="#zobie"/></svg>
+    <span>© <span id="year"></span> Kostandino. All artwork by Kosta Sweezy.</span>
+  </footer>
+
+  <button class="mascot" type="button" aria-label="Zobie the mascot — click to say hi">
+    <span class="mascot-say hand" aria-live="polite"></span>
+    <span class="mascot-body"><svg class="mark"><use href="#zobie"/></svg></span>
+  </button>
+
+  <dialog class="sheet" aria-labelledby="sheet-title">
+    <button class="sheet-close" type="button" aria-label="Close">×</button>
+    <img class="sheet-cover" src="" alt="">
+    <div class="sheet-body">
+      <p class="hand sheet-note"></p>
+      <h3 id="sheet-title"></h3>
+      <div class="sheet-links">
+        <a class="btn primary" data-link="spotify" href="#">Spotify</a>
+        <a class="btn" data-link="apple" href="#">Apple Music</a>
+        <a class="btn" data-link="youtube" href="#">YouTube</a>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>

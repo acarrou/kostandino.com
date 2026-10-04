@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kostandino</title>
-  <meta name="description" content="Kostandino — music, art and ZOBIE. Listen to the latest releases and flip through the sketchbook.">
+  <meta name="description" content="Kostandino — certified overthinker with a melody. New single “Willow” out now.">
   <meta property="og:title" content="Kostandino">
   <meta property="og:description" content="Music, art and ZOBIE.">
-  <meta property="og:image" content="assets/img/summer-vibes.jpg">
+  <meta property="og:image" content="assets/img/covers/willow.jpg">
   <link rel="icon" href="assets/zobie.svg?v=2" type="image/svg+xml">
   <link rel="icon" href="assets/favicon-32.png?v=2" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -28,16 +28,27 @@
     <filter id="boil-3"><feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="13"/><feDisplacementMap in="SourceGraphic" scale="3"/></filter>
   </svg>
 
+  <!-- Temporary: lets Kosta flip between the two directions. Remove once he picks one. -->
+  <div class="preview-bar">
+    <span class="hand">Kosta — which one feels like you?</span>
+    <div class="seg" role="group" aria-label="Site version">
+      <button type="button" data-version-btn="simple">Simple</button>
+      <button type="button" data-version-btn="full">Everything</button>
+    </div>
+  </div>
+
   <header class="nav">
     <a class="brand" href="#top" aria-label="Kostandino, back to top">
       <svg class="mark"><use href="#zobie"/></svg>
       <span>Kostandino</span>
     </a>
     <nav aria-label="Main">
+      <a href="#latest">Willow</a>
       <a href="#music">Music</a>
       <a href="#about">About</a>
-      <a href="#zobie-section">Zobie</a>
-      <a href="#sketchbook">Sketchbook</a>
+      <a class="full-only" href="#next">What's next</a>
+      <a class="full-only" href="#zobie-section">Zobie</a>
+      <a class="full-only" href="#art">Art</a>
       <a href="#contact">Contact</a>
     </nav>
     <button class="theme-toggle" type="button" aria-label="Switch between day and night">
@@ -48,7 +59,7 @@
   <main id="top">
     <section class="hero">
       <img class="doodles" src="assets/img/doodles.png" alt="" aria-hidden="true">
-      <p class="hand hero-kicker">songs for sun, pools &amp; falling leaves</p>
+      <p class="hand hero-kicker">certified overthinker with a melody</p>
       <h1 class="hero-title" aria-label="Kostandino">
         <span>Kostan</span><span>dino</span>
       </h1>
@@ -58,8 +69,8 @@
         <img src="assets/img/summer-vibes.jpg" alt="">
       </div>
       <div class="hero-cta">
-        <a class="btn primary" href="#music">Listen now</a>
-        <a class="btn" href="#zobie-section">Meet Zobie</a>
+        <a class="btn primary" href="#latest">Hear “Willow”</a>
+        <a class="btn" href="#music">All music</a>
       </div>
     </section>
 
@@ -67,11 +78,32 @@
       <div class="marquee-track"></div>
     </div>
 
+    <section id="latest" class="section featured">
+      <div class="featured-cover">
+        <img src="assets/img/covers/willow.jpg" alt="Willow cover art: pale leaves on deep blue and green">
+        <span class="tape"></span>
+      </div>
+      <div class="featured-text">
+        <p class="hand featured-kicker">new single — out now</p>
+        <h2>Willow</h2>
+        <p class="lead">The latest from Kostandino, released August 7, 2026.</p>
+        <div class="featured-links">
+          <a class="btn primary" data-link="spotify" href="#">Spotify</a>
+          <a class="btn" href="https://music.apple.com/us/album/willow-single/6794258295" target="_blank" rel="noopener">Apple Music</a>
+          <a class="btn" href="https://share.amuse.io/track/kostandino-willow" target="_blank" rel="noopener">All platforms</a>
+        </div>
+      </div>
+    </section>
+
     <section id="music" class="section">
       <div class="section-head">
         <h2>The music</h2>
-        <p class="hand">every cover made by hand — tap one</p>
+        <p class="hand">2021 → now. tap a cover</p>
       </div>
+      <iframe class="player full-only" title="Kostandino on Spotify"
+        src="https://open.spotify.com/embed/artist/0BaPCHvfHaThF8nhfvEAzF?utm_source=generator"
+        height="352" loading="lazy"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
       <div class="releases"></div>
     </section>
 
@@ -82,19 +114,46 @@
       </div>
       <div class="about-text">
         <h2>Hi, I'm Kosta.</h2>
-        <!-- DRAFT COPY: replace with Kosta's real bio -->
+        <!-- DRAFT COPY: replace with Kosta's own words -->
         <p class="lead">I write the songs, I make the covers, I draw the doodles in the margins. If it's on this page, it came out of my head and my hands.</p>
-        <p>The music lives somewhere between a beach towel in July and a pile of leaves in October — sunny on top, a little bit lost underneath. I'd rather make something that feels like me than something that sounds like everyone else.</p>
+        <div class="full-only">
+          <p class="todo"><b>My story — Kosta to write.</b> Where you're from, how the music started, what “Aurora” was about, and what changed between then and “Willow”.</p>
+        </div>
         <ul class="stickers">
-          <li>100% self-made artwork</li>
-          <li>Parle un peu français</li>
-          <li>Not my phone</li>
-          <li>Wild &amp; free</li>
+          <li>Certified overthinker</li>
+          <li>Releasing since 2021</li>
+          <li>Makes his own covers</li>
+          <li>Zobie's best friend</li>
         </ul>
       </div>
     </section>
 
-    <section id="zobie-section" class="section zobie">
+    <section id="next" class="section full-only">
+      <div class="section-head">
+        <h2>Where I'm headed</h2>
+        <p class="hand">the plan, roughly</p>
+      </div>
+      <!-- DRAFT: placeholders for Kosta's real plans -->
+      <div class="next-grid">
+        <article class="next-card">
+          <img src="assets/img/time-flys.jpg" alt="Time Flys artwork" loading="lazy">
+          <h3>The album</h3>
+          <p class="todo">Title, date and a line about it — Kosta to fill in.</p>
+        </article>
+        <article class="next-card">
+          <img src="assets/img/soleil-et-toi.jpg" alt="Soleil et Toi artwork" loading="lazy">
+          <h3>Shows</h3>
+          <p class="todo">Upcoming dates, or “want me to play? get in touch”.</p>
+        </article>
+        <article class="next-card">
+          <img src="assets/img/merch-sketch.png" class="sketch" alt="Hand-drawn sketch of a Zobie t-shirt" loading="lazy">
+          <h3>Merch</h3>
+          <p class="todo">Zobie tees — what's coming and when.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="zobie-section" class="section zobie full-only">
       <div class="zobie-head">
         <svg class="mark big"><use href="#zobie"/></svg>
         <h2>Zobie</h2>
@@ -117,32 +176,33 @@
       <a class="btn primary" href="#contact">Tell me when merch drops</a>
     </section>
 
-    <section id="sketchbook" class="section">
+    <section id="art" class="section full-only">
       <div class="section-head">
-        <h2>Sketchbook</h2>
-        <p class="hand">stuff that isn't a song (yet)</p>
+        <h2>The art</h2>
+        <p class="hand">all made by Kosta — scroll sideways</p>
       </div>
       <div class="strip" tabindex="0" aria-label="Artwork gallery, scroll sideways">
+        <img src="assets/img/summer-vibes.jpg" alt="Summer Vibes artwork: Kosta on a striped beach towel" loading="lazy">
+        <img src="assets/img/soleil-et-toi.jpg" alt="Soleil et Toi artwork: house and pool in the sun" loading="lazy">
+        <img src="assets/img/fools-gold.jpg" alt="Fools Gold artwork" loading="lazy">
+        <img src="assets/img/rabbit-hole.jpg" alt="Rabbit Hole artwork" loading="lazy">
+        <img src="assets/img/time-flys.jpg" alt="Time Flys artwork, green line drawing on orange" loading="lazy">
+        <img src="assets/img/fall-day.jpg" alt="Fall artwork in orange and red" loading="lazy">
         <img src="assets/img/bubble.jpg" alt="Iridescent bubble floating on bright blue" loading="lazy">
         <img src="assets/img/vortex.jpg" alt="Swirling turquoise vortex" loading="lazy">
         <img src="assets/img/splash.jpg" alt="Red-orange liquid splash on white" loading="lazy">
-        <img src="assets/img/fall-night.jpg" alt="Fall artwork in blue and green" loading="lazy">
-        <img src="assets/img/time-flys.jpg" alt="Time Flys artwork, green line drawing on orange" loading="lazy">
-        <img src="assets/img/blur-portrait.jpg" alt="Blurred portrait" loading="lazy">
       </div>
     </section>
 
     <section id="contact" class="section contact">
       <h2>Say hi</h2>
       <p class="lead">Shows, collabs, merch questions, or just to tell me which cover is your favourite.</p>
-      <!-- TODO: replace with Kosta's real email + profile links (also see LINKS in script.js) -->
-      <a class="btn primary big-btn" href="mailto:hello@example.com">hello@example.com</a>
+      <a class="btn primary big-btn" data-link="instagram" href="#">DM @kostandno</a>
       <ul class="socials">
         <li><a data-link="spotify" href="#">Spotify</a></li>
         <li><a data-link="apple" href="#">Apple Music</a></li>
-        <li><a data-link="youtube" href="#">YouTube</a></li>
+        <li><a data-link="soundcloud" href="#">SoundCloud</a></li>
         <li><a data-link="instagram" href="#">Instagram</a></li>
-        <li><a data-link="tiktok" href="#">TikTok</a></li>
       </ul>
     </section>
   </main>
@@ -164,9 +224,9 @@
       <p class="hand sheet-note"></p>
       <h3 id="sheet-title"></h3>
       <div class="sheet-links">
-        <a class="btn primary" data-link="spotify" href="#">Spotify</a>
-        <a class="btn" data-link="apple" href="#">Apple Music</a>
-        <a class="btn" data-link="youtube" href="#">YouTube</a>
+        <a class="btn primary" data-link="apple" href="#" target="_blank" rel="noopener">Apple Music</a>
+        <a class="btn" data-link="spotify" href="#" target="_blank" rel="noopener">Spotify</a>
+        <a class="btn" data-link="soundcloud" href="#" target="_blank" rel="noopener">SoundCloud</a>
       </div>
     </div>
   </dialog>

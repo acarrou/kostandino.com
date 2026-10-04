@@ -1,29 +1,53 @@
 // ---- Edit these -------------------------------------------------------
-// Profile links used by the footer/contact buttons and as the fallback
-// for any release that has no link of its own.
+// Profile links used by the contact buttons and as the fallback for any
+// release that has no link of its own.
 const LINKS = {
-  spotify: '#',
-  apple: '#',
-  youtube: '#',
-  instagram: '#',
-  tiktok: '#',
+  spotify: 'https://open.spotify.com/artist/0BaPCHvfHaThF8nhfvEAzF',
+  apple: 'https://music.apple.com/us/artist/kostandino/1568477597',
+  soundcloud: 'https://soundcloud.com/kosta_sweezy',
+  instagram: 'https://www.instagram.com/kostandno/',
 };
 
-// One entry per release. `links` can override spotify/apple/youtube per release.
+// One entry per release, newest first. `links` overrides LINKS for that release.
+const APPLE = 'https://music.apple.com/us/album/';
 const RELEASES = [
-  { title: 'Summer Vibes', note: 'not my phone', img: 'summer-vibes.jpg' },
-  { title: 'Soleil et Toi', note: 'wild and free', img: 'soleil-et-toi.jpg' },
-  { title: 'Fools Gold', note: 'shiny, but is it real?', img: 'fools-gold.jpg' },
-  { title: 'Rabbit Hole', note: 'lights on, nobody home', img: 'rabbit-hole.jpg' },
-  { title: 'Time Flys', note: 'blink and it’s gone', img: 'time-flys.jpg' },
-  { title: 'Fall', note: 'love: |luv| – n.', img: 'fall-day.jpg', nightImg: 'fall-night.jpg' },
+  { title: 'Willow', note: 'single · 2026', img: 'willow.jpg', links: { apple: APPLE + 'willow-single/6794258295' } },
+  { title: 'Way Back', note: 'single · 2025', img: 'way-back.jpg', links: { apple: APPLE + 'way-back-single/1797192500' } },
+  { title: 'Showing Off', note: 'single · 2024', img: 'showing-off.jpg', links: { apple: APPLE + 'showing-off-single/1778623211' } },
+  { title: 'Picky', note: 'single · 2023', img: 'picky.jpg', links: { apple: APPLE + 'picky-single/1717760333' } },
+  { title: 'Bella’s Ranger', note: 'single · 2023', img: 'bellas-ranger.jpg', links: { apple: APPLE + 'bellas-ranger-single/1675474994' } },
+  { title: 'Planet', note: 'single · 2022', img: 'planet.jpg', links: { apple: APPLE + 'planet-single/1644307799' } },
+  { title: 'Aurora', note: 'album · 9 songs · 2022', img: 'aurora.jpg', links: { apple: APPLE + 'aurora/1619951307' } },
+  { title: '2 Years', note: 'single · 2021', img: '2-years.jpg', links: { apple: APPLE + '2-years-single/1573282063' } },
+  { title: 'Demo My Heart', note: 'single · 2021', img: 'demo-my-heart.jpg', links: { apple: APPLE + 'demo-my-heart-single/1568477594' } },
 ];
 // -----------------------------------------------------------------------
 
-const IMG = 'assets/img/';
 const root = document.documentElement;
 const isNight = () => root.dataset.theme === 'night';
-const coverFor = (r) => IMG + (isNight() && r.nightImg ? r.nightImg : r.img);
+const coverFor = (r) => 'assets/img/covers/' + r.img;
+
+// "Simple" vs "Everything" preview. ?v=full or ?v=simple in the URL wins, so
+// either version can be shared as a link.
+function setVersion(version) {
+  root.dataset.version = version;
+  document.querySelectorAll('[data-version-btn]').forEach((b) => {
+    b.setAttribute('aria-pressed', b.dataset.versionBtn === version);
+  });
+  try { localStorage.setItem('version', version); } catch {}
+}
+let version = new URLSearchParams(location.search).get('v');
+if (version !== 'full' && version !== 'simple') {
+  try { version = localStorage.getItem('version'); } catch {}
+}
+setVersion(version === 'full' ? 'full' : 'simple');
+document.querySelectorAll('[data-version-btn]').forEach((b) => {
+  b.addEventListener('click', () => {
+    setVersion(b.dataset.versionBtn);
+    history.replaceState(null, '', `?v=${b.dataset.versionBtn}`);
+    scrollTo({ top: 0 });
+  });
+});
 
 // Releases grid
 const grid = document.querySelector('.releases');
@@ -38,7 +62,6 @@ RELEASES.forEach((r, i) => {
     <span class="hand release-note">${r.note}</span>`;
   card.addEventListener('click', () => openSheet(r));
   grid.append(card);
-  r.el = card;
 });
 
 // Marquee (duplicated once so the loop is seamless)
@@ -62,15 +85,15 @@ sheet.querySelector('.sheet-close').addEventListener('click', () => sheet.close(
 sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); });
 
 // Profile links outside the sheet
-document.querySelectorAll('main [data-link], footer [data-link]').forEach((a) => {
+document.querySelectorAll('main [data-link]').forEach((a) => {
   a.href = LINKS[a.dataset.link];
-  if (a.href.startsWith('http')) { a.target = '_blank'; a.rel = 'noopener'; }
+  a.target = '_blank';
+  a.rel = 'noopener';
 });
 
 // Day / night
 function setTheme(theme) {
   root.dataset.theme = theme;
-  RELEASES.forEach((r) => { if (r.nightImg) r.el.querySelector('img').src = coverFor(r); });
   try { localStorage.setItem('theme', theme); } catch {}
 }
 let saved;
@@ -86,10 +109,12 @@ const mascot = document.querySelector('.mascot');
 const say = mascot.querySelector('.mascot-say');
 const SECTION_LINES = {
   top: 'hi, i’m zobie!',
+  latest: 'new song!!',
   music: 'tap a cover!',
   about: 'that’s my guy',
   'zobie-section': 'hey, that’s me',
-  sketchbook: 'scroll sideways →',
+  next: 'big plans…',
+  art: 'scroll sideways →',
   contact: 'go on, say hi',
 };
 const CLICK_LINES = ['wheee!', 'boop', 'time flys…', 'not my phone', 'again!', 'wild & free'];

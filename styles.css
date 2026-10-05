@@ -12,7 +12,7 @@
   --card: #fffaf0;
   --on-alt: #1d1509;
   --shadow: #1d1509;
-  --display: 'Bagel Fat One', 'Arial Black', sans-serif;
+  --display: 'Bilderberg', 'Bagel Fat One', Georgia, serif;
   --hand: 'Caveat', 'Bradley Hand', cursive;
   --body: 'DM Sans', system-ui, sans-serif;
 }
@@ -48,13 +48,31 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
 .hand { font-family: var(--hand); font-size: 1.6rem; line-height: 1.1; margin: 0; }
 .lead { font-size: 1.3rem; line-height: 1.45; }
 
-/* stroke-width is in the drawing's own units (it is ~640 wide), so it is set per size */
+/* stroke-width is in the drawing's own units (it is ~315 wide), so it is set per size */
 .mark {
-  width: 46px; height: 29px;
-  fill: none; stroke: currentColor; stroke-width: 44;
+  width: 46px; height: 32px;
+  fill: none; stroke: currentColor; stroke-width: 14;
   stroke-linecap: round; stroke-linejoin: round;
   overflow: visible;
 }
+
+/* New-release bar */
+.release-bar {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .3rem .8rem;
+  padding: .45rem 1rem;
+  background: var(--navy); color: #fffaf0;
+  text-decoration: none;
+}
+.release-bar img { width: 34px; height: 34px; border: 2px solid #fffaf0; border-radius: 4px; rotate: -4deg; }
+.release-bar-tag {
+  padding: .1rem .6rem; border-radius: 999px;
+  background: #ffd23f; color: #1d1509;
+  font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+}
+.release-bar-title { font-family: var(--display); font-size: 1.35rem; line-height: 1; }
+.release-bar-note { opacity: .8; }
+.release-bar-cta { font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+.release-bar:hover .release-bar-cta { color: #ffd23f; }
 
 /* Nav */
 .nav {
@@ -119,35 +137,30 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
 [data-theme='night'] .doodles { filter: invert(1); mix-blend-mode: screen; }
 .hero > :not(.doodles) { position: relative; }
 .hero-kicker { color: var(--accent); font-size: clamp(1.5rem, 3.5vw, 2.2rem); rotate: -2deg; }
-.tagline { display: inline-block; transition: opacity .7s, translate .7s; }
-.tagline.out { opacity: 0; translate: 0 6px; }
 .hero-title {
-  font-size: clamp(3.2rem, 14.5vw, 15rem);
-  color: var(--pop);
-  -webkit-text-stroke: .018em var(--ink);
-  text-shadow:
-    .035em .035em 0 var(--accent),
-    .07em .07em 0 var(--shadow);
-  letter-spacing: .01em;
+  width: min(92vw, 1150px);
+  filter: drop-shadow(.35vw .35vw 0 var(--accent)) drop-shadow(.3vw .3vw 0 var(--shadow));
 }
-.hero-title span { display: inline-block; }
-.hero-title span:first-child { rotate: -2deg; }
-.hero-title span:last-child { rotate: 1.5deg; translate: 0 .06em; }
+.hero-title img { width: 100%; height: auto; }
+.night-only, [data-theme='night'] .day-only { display: none; }
+[data-theme='night'] .night-only { display: block; }
 .hero-stack {
-  display: grid; width: min(320px, 62vw); aspect-ratio: 1;
-  margin-top: -1.5rem;
+  display: grid; width: min(400px, 62vw, 42svh); aspect-ratio: 1;
+  margin-top: .25rem;
 }
-.hero-stack img {
-  grid-area: 1 / 1;
+.hero-stack .card {
+  grid-area: 1 / 1; overflow: hidden;
   border: 3px solid var(--ink); border-radius: 6px;
   box-shadow: 8px 8px 0 var(--shadow);
-  transition: rotate .4s, translate .4s;
+  transition: rotate .4s, translate .4s, scale .2s;
 }
-.hero-stack img:nth-child(1) { rotate: -11deg; translate: -38% 4%; }
-.hero-stack img:nth-child(2) { rotate: 10deg; translate: 38% 6%; }
-.hero-stack img:nth-child(3) { rotate: -2deg; }
-.hero:hover .hero-stack img:nth-child(1) { rotate: -15deg; translate: -50% 2%; }
-.hero:hover .hero-stack img:nth-child(2) { rotate: 14deg; translate: 50% 4%; }
+.hero-stack .card img { width: 100%; height: 100%; object-fit: cover; }
+.hero-stack .card:nth-child(1) { rotate: -11deg; translate: -38% 4%; }
+.hero-stack .card:nth-child(2) { rotate: 10deg; translate: 38% 6%; }
+.hero-stack .card:nth-child(3) { rotate: -2deg; }
+.hero:hover .hero-stack .card:nth-child(1) { rotate: -15deg; translate: -50% 2%; }
+.hero:hover .hero-stack .card:nth-child(2) { rotate: 14deg; translate: 50% 4%; }
+.hero-stack a.card:hover { scale: 1.04; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 1.5rem; }
 
 /* Marquee */
@@ -163,7 +176,10 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
   padding: .5rem 0;
   animation: slide 28s linear infinite;
 }
-.marquee-track span { padding: 0 1rem; white-space: nowrap; }
+.marquee-track > * { padding: 0 1rem; white-space: nowrap; }
+.marquee-track button { border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.marquee-track button:hover { color: var(--pop); text-decoration: underline wavy 2px; text-underline-offset: 6px; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
 .marquee-track .star { color: var(--pop); }
 @keyframes slide { to { transform: translateX(-50%); } }
 
@@ -175,6 +191,7 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
 /* Featured release */
 .featured { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; }
 .featured-cover { position: relative; rotate: 2.5deg; }
+.featured-cover a { display: block; }
 .featured-cover img { border: 3px solid var(--ink); border-radius: 6px; box-shadow: 10px 10px 0 var(--accent); }
 .featured-kicker { color: var(--accent); rotate: -2deg; margin-bottom: .5rem; }
 .featured-text h2 { font-size: clamp(4rem, 13vw, 9rem); }
@@ -234,7 +251,7 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
   padding: 2rem 1rem; border-top: 2px solid var(--ink);
   font-size: .9rem; color: var(--ink-soft);
 }
-.footer .mark { width: 32px; height: 20px; color: var(--accent); }
+.footer .mark { width: 32px; height: 22px; color: var(--accent); }
 
 /* Zobie, the mascot: draws himself in, then floats in the corner */
 .mascot {
@@ -253,7 +270,7 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
   animation: bob 3.2s ease-in-out infinite;
 }
 .mascot .mark {
-  width: 64px; height: 40px; stroke-width: 34;
+  width: 64px; height: 45px; stroke-width: 11;
   stroke-dasharray: 1; stroke-dashoffset: 1;
   animation: draw 1.8s .4s ease-in-out forwards, boil .45s steps(1) infinite;
 }
@@ -274,6 +291,11 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
   33% { filter: url(#boil-2); }
   66% { filter: url(#boil-3); }
 }
+/* Zobie's hair sways from the roots */
+.zobie-hair { transform-box: fill-box; transform-origin: 50% 100%; animation: sway 2.6s ease-in-out infinite; }
+.zobie-hair:nth-of-type(3) { animation-delay: -.5s; }
+.zobie-hair:nth-of-type(4) { transform-origin: 0% 100%; animation-delay: -1s; }
+@keyframes sway { 50% { rotate: 7deg; } }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes bob { 50% { translate: 0 -8px; rotate: -5deg; } }
 @keyframes hop {
@@ -291,6 +313,7 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
 }
 .sheet[open] { display: grid; grid-template-columns: 1fr 1fr; }
 .sheet::backdrop { background: rgb(10 10 20 / .65); backdrop-filter: blur(4px); }
+.sheet-cover-link { display: block; }
 .sheet-cover { width: 100%; aspect-ratio: 1; object-fit: cover; }
 .sheet-body { display: grid; align-content: center; gap: 1rem; padding: 2rem; }
 .sheet-body h3 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
@@ -309,7 +332,7 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
 @media (max-width: 760px) {
   .nav nav { display: none; }
   .mascot-body { width: 68px; height: 68px; }
-  .mascot .mark { width: 48px; height: 30px; }
+  .mascot .mark { width: 48px; height: 34px; }
   .mascot-say { font-size: 1.2rem; }
   .hero-stack { width: min(240px, 52vw); margin-top: 0; }
   .theme-toggle { margin-left: auto; }

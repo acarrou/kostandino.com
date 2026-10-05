@@ -36,7 +36,7 @@ const RELEASES = [
       soundcloud: 'https://soundcloud.com/kosta_sweezy/demo-my-heart' } },
 ];
 
-// Lines that take turns under the name in the hero. All Kosta's own words:
+// Lines that are typed out in turn under the name in the hero. All Kosta's own words:
 // his Instagram bio first (it stays up longest), then a post and two covers.
 const TAGLINES = [
   'certified overthinker with a melody',
@@ -65,10 +65,14 @@ RELEASES.forEach((r, i) => {
   grid.append(card);
 });
 
-// Marquee (duplicated once so the loop is seamless)
+// Marquee (duplicated once so the loop is seamless); each title opens that song
 const track = document.querySelector('.marquee-track');
-const run = RELEASES.map((r) => `<span>${r.title}</span><span class="star">✺</span>`).join('');
+const run = RELEASES.map((r, i) => `<button type="button" tabindex="-1" data-release="${i}">${r.title}</button><span class="star">✺</span>`).join('');
 track.innerHTML = run + run;
+track.addEventListener('click', (e) => {
+  const button = e.target.closest('[data-release]');
+  if (button) openSheet(RELEASES[button.dataset.release]);
+});
 
 // Release sheet
 const sheet = document.querySelector('.sheet');
@@ -105,20 +109,20 @@ document.querySelector('.theme-toggle').addEventListener('click', () => {
   setTheme(isNight() ? 'day' : 'night');
 });
 
-// Hero tagline: each line fades in, holds, and fades to the next
+// Hero tagline: each line types in, holds, then backspaces to the next (no cursor)
 const tagline = document.querySelector('.tagline');
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  let line = 0;
-  const next = () => {
-    tagline.classList.add('out');
-    setTimeout(() => {
-      line = (line + 1) % TAGLINES.length;
-      tagline.textContent = TAGLINES[line];
-      tagline.classList.remove('out');
-      setTimeout(next, line === 0 ? 8000 : 5000);
-    }, 700);
+  let line = 0, chars = TAGLINES[0].length, deleting = true;
+  const tick = () => {
+    const text = TAGLINES[line];
+    chars += deleting ? -1 : 1;
+    tagline.textContent = text.slice(0, chars) || '\u00a0';
+    let wait = deleting ? 30 : 60;
+    if (!deleting && chars === text.length) { deleting = true; wait = line === 0 ? 8000 : 5000; }
+    if (deleting && chars === 0) { deleting = false; line = (line + 1) % TAGLINES.length; wait = 400; }
+    setTimeout(tick, wait);
   };
-  setTimeout(next, 8000);
+  setTimeout(tick, 8000);
 }
 
 // Zobie the mascot: comments on whichever section is in view, hops when clicked,
@@ -133,12 +137,20 @@ const SECTION_LINES = {
   contact: 'go on, say hi',
 };
 const CLICK_LINES = ['wheee!', 'boop', 'time flys…', 'not my phone', 'again!', 'wild & free'];
+// Easter egg: every 10th click on Zobie reveals what one letter of his name means.
+const ZOBIE_MEANINGS = [
+  'Z — you don’t have to stick out to be unique',
+  'O — because my name has two Os',
+  'B — be yourself (it ain’t that deep)',
+  'I — introverted',
+  'E — extroverted',
+];
 let sayTimer;
-function speak(line) {
+function speak(line, hold = 3500) {
   say.textContent = line;
   say.classList.add('show');
   clearTimeout(sayTimer);
-  sayTimer = setTimeout(() => say.classList.remove('show'), 3500);
+  sayTimer = setTimeout(() => say.classList.remove('show'), hold);
 }
 const watcher = new IntersectionObserver((entries) => {
   entries.forEach((e) => { if (e.isIntersecting) speak(SECTION_LINES[e.target.dataset.zobie]); });
@@ -153,7 +165,12 @@ mascot.addEventListener('click', () => {
   mascot.classList.remove('hop');
   void mascot.offsetWidth; // restart the animation
   mascot.classList.add('hop');
-  speak(CLICK_LINES[clicks++ % CLICK_LINES.length]);
+  clicks++;
+  if (clicks % 10 === 0) {
+    speak(ZOBIE_MEANINGS[(clicks / 10 - 1) % ZOBIE_MEANINGS.length], 7000);
+  } else {
+    speak(CLICK_LINES[clicks % CLICK_LINES.length]);
+  }
 });
 let lastY = scrollY, leanTimer;
 addEventListener('scroll', () => {

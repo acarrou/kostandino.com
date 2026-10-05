@@ -1,5 +1,5 @@
 /* Headline font: "Eroded Personal Use" — free for personal use only, so buy the
-   commercial licence before promoting the site. Its numerals are replaced by a
+   commercial licence (billyargel.com) before promoting the site. Its numerals are replaced by a
    watermark logo, so numbers are left out here and fall back to Anton. */
 @font-face {
   font-family: 'Eroded';
@@ -55,6 +55,9 @@ img { display: block; max-width: 100%; }
 a { color: inherit; }
 h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: .95; margin: 0; }
 h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
+/* The slanted look from the designer's preview. The free download only has the
+   upright cut, so the browser slants it; the real italic comes with the paid set. */
+h2, h3, .brand, .release-title, .marquee-track, .release-bar-title, .socials a { font-style: italic; }
 .hand { font-family: var(--hand); font-size: 1.6rem; line-height: 1.1; margin: 0; }
 .lead { font-size: 1.3rem; line-height: 1.45; }
 

@@ -23,7 +23,7 @@ const RELEASES = [
     links: { spotify: SPOTIFY + '5baDKmhhPVbR0tg2s16eMX', apple: APPLE + 'showing-off-single/1778623211' } },
   { title: 'Picky', note: 'single · 2023', img: 'picky.jpg',
     links: { spotify: SPOTIFY + '5NpYhIiYcllEQnmgrbIWVt', apple: APPLE + 'picky-single/1717760333' } },
-  { title: 'Bella’s Ranger', note: 'single · 2023', img: 'bellas-ranger.jpg',
+  { title: "Bella's Ranger", note: 'single · 2023', img: 'bellas-ranger.jpg',
     links: { spotify: SPOTIFY + '5KoyYJvoPQU63aAPzqw44L', apple: APPLE + 'bellas-ranger-single/1675474994' } },
   { title: 'Planet', note: 'single · 2022', img: 'planet.jpg',
     links: { spotify: SPOTIFY_SEARCH + 'Kostandino%20Planet', apple: APPLE + 'planet-single/1644307799' } },

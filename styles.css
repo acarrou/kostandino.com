@@ -1,10 +1,8 @@
-/* Headline font: "Eroded Personal Use" — free for personal use only, so buy the
-   commercial licence (billyargel.com) before promoting the site. Its numerals are replaced by a
-   watermark logo, so numbers are left out here and fall back to Anton. */
+/* Headline font: Strider (Circle Font), picked by Kosta. Free for personal use only:
+   buy the commercial licence at circlefont.com/product/strider before promoting the site. */
 @font-face {
-  font-family: 'Eroded';
-  src: url('https://fonts.cdnfonts.com/s/64360/ErodedPersonalUseRegular-Eaepe.woff') format('woff');
-  unicode-range: U+0020-002F, U+003A-007E, U+2018-201D;
+  font-family: 'Strider';
+  src: url('assets/fonts/Strider.otf') format('opentype');
   font-display: swap;
 }
 
@@ -22,7 +20,7 @@
   --card: #fffaf0;
   --on-alt: #1d1509;
   --shadow: #1d1509;
-  --display: 'Eroded', 'Anton', 'Arial Black', sans-serif;
+  --display: 'Strider', Georgia, 'Times New Roman', serif;
   --hand: 'Caveat', 'Bradley Hand', cursive;
   --body: 'DM Sans', system-ui, sans-serif;
 }
@@ -55,9 +53,6 @@ img { display: block; max-width: 100%; }
 a { color: inherit; }
 h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: .95; margin: 0; }
 h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
-/* The slanted look from the designer's preview. The free download only has the
-   upright cut, so the browser slants it; the real italic comes with the paid set. */
-h2, h3, .brand, .release-title, .marquee-track, .release-bar-title, .socials a { font-style: italic; }
 .hand { font-family: var(--hand); font-size: 1.6rem; line-height: 1.1; margin: 0; }
 .lead { font-size: 1.3rem; line-height: 1.45; }
 
@@ -82,7 +77,7 @@ h2, h3, .brand, .release-title, .marquee-track, .release-bar-title, .socials a {
   background: #ffd23f; color: #1d1509;
   font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
 }
-.release-bar-title { font-family: var(--display); font-size: 1.8rem; line-height: 1; }
+.release-bar-title { font-family: var(--display); font-size: 1.3rem; line-height: 1; }
 .release-bar-note { opacity: .8; }
 .release-bar-cta { font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 .release-bar:hover .release-bar-cta { color: #ffd23f; }
@@ -98,7 +93,7 @@ h2, h3, .brand, .release-title, .marquee-track, .release-bar-title, .socials a {
 }
 .brand {
   display: flex; align-items: center; gap: .6rem;
-  font-family: var(--display); font-size: 2.1rem; line-height: 1; text-decoration: none;
+  font-family: var(--display); font-size: 1.5rem; line-height: 1; text-decoration: none;
 }
 .brand .mark { color: var(--accent); transition: transform .6s; }
 .brand:hover .mark { transform: rotate(-360deg); }
@@ -225,7 +220,7 @@ h2, h3, .brand, .release-title, .marquee-track, .release-bar-title, .socials a {
 }
 .release:hover, .release:focus-visible { rotate: 0deg; transform: translateY(-6px); box-shadow: 10px 12px 0 var(--accent); }
 .release img { aspect-ratio: 1; object-fit: cover; border: 2px solid var(--ink); border-radius: 4px; margin-bottom: .4rem; }
-.release-title { font-family: var(--display); font-size: 2.4rem; line-height: 1; }
+.release-title { font-family: var(--display); font-size: 1.6rem; line-height: 1.05; }
 .release-note { color: var(--ink-soft); font-size: 1.35rem; }
 
 /* About */
@@ -256,14 +251,15 @@ h2, h3, .brand, .release-title, .marquee-track, .release-bar-title, .socials a {
 .contact .lead { max-width: 30em; margin: 1.25rem auto 2rem; }
 .big-btn { font-size: clamp(1.1rem, 3vw, 1.6rem); padding: 1rem 2rem; }
 .socials { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem 2rem; padding: 0; margin: 2.5rem 0 0; list-style: none; }
-.socials a { font-family: var(--display); font-size: 2.2rem; text-decoration: none; }
+.socials a { font-family: var(--display); font-size: 1.5rem; text-decoration: none; }
 .socials a:hover { color: var(--accent); text-decoration: underline wavy 2px; text-underline-offset: 6px; }
 
 .footer {
-  display: flex; align-items: center; justify-content: center; gap: .8rem;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .6rem .8rem;
   padding: 2rem 1rem; border-top: 2px solid var(--ink);
   font-size: .9rem; color: var(--ink-soft);
 }
+.footer-note { flex-basis: 100%; margin: 0; text-align: center; font-size: 1.3rem; color: var(--accent); }
 .footer .mark { width: 32px; height: 22px; color: var(--accent); }
 
 /* Zobie, the mascot: draws himself in, then floats in the corner */

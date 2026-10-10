@@ -130,13 +130,13 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
   overflow-x: clip;
   min-height: min(100svh - 64px, 900px);
   overflow: hidden;
-  display: grid; justify-items: center; align-content: center;
+  display: grid; grid-template-columns: minmax(0, 1fr); justify-items: center; align-content: center;
   gap: 1.25rem;
   --head-h: clamp(98px, 16.8vw, 182px); /* used by the parked Zobie hug */
   padding: 3rem 1rem 4rem;
   text-align: center;
 }
-.hero > * { position: relative; }
+.hero > * { position: relative; max-width: 100%; }
 .hero-kicker { color: var(--accent); font-size: clamp(1.5rem, 3.5vw, 2.2rem); rotate: -2deg; }
 .hero-title {
   width: min(92vw, 1150px);
@@ -507,9 +507,19 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
   .mascot-body { width: 68px; height: 68px; }
   .mascot .mark { width: 48px; height: 34px; }
   .mascot-say { font-size: 1.2rem; }
-  .deck { width: min(240px, 56vw); }
-  .deck-wrap { gap: calc(min(240px, 56vw) * .5); }
-  .deck-arrow { width: 48px; height: 48px; font-size: 1.6rem; }
+  /* phones: the deck fills the width, side covers fan less, arrows sit over the fan's edges */
+  .deck { width: min(230px, 58vw); }
+  .deck-wrap { width: 100%; justify-content: center; gap: 0; margin-top: 1.25rem; }
+  .deck-arrow { position: absolute; top: 50%; translate: 0 -50%; width: 46px; height: 46px; font-size: 1.5rem; }
+  .deck-arrow.prev { left: 0; }
+  .deck-arrow.next { right: 0; }
+  .deck .card[data-off='-1'] { transform: translate(-30%, 4%) rotate(-10deg) scale(.9); }
+  .deck .card[data-off='1'] { transform: translate(30%, 6%) rotate(9deg) scale(.9); }
+  .deck .card[data-off='-2'] { transform: translate(-46%, 10%) rotate(-18deg) scale(.78); }
+  .deck .card[data-off='2'] { transform: translate(46%, 12%) rotate(17deg) scale(.78); }
+  .deck-wrap .peek { width: 100px; height: 70px; }
+  .player { width: 100%; }
+  .about-photo { position: relative; top: auto; }
   .hero .grip { top: 52%; }
   .hero .arms { stroke-width: 10; }
   .theme-toggle { margin-left: 0; }

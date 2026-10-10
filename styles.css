@@ -185,6 +185,11 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
   opacity: 0; scale: .8; transition: opacity .25s, scale .25s;
 }
 @media (hover: hover) { .deck .card[data-off='0']:hover .play-badge { opacity: .92; scale: 1; } }
+/* touch screens have no hover, so the front cover always shows a small play badge in its corner */
+@media (hover: none) {
+  .deck .card[data-off='0'] .play-badge { opacity: 1; scale: 1; left: auto; top: auto; right: 10px; bottom: 10px; translate: 0 0; width: 52px; height: 52px; }
+  .deck .card[data-off='0'] .play-badge svg { width: 24px; height: 24px; }
+}
 .play-badge svg { width: 32px; height: 32px; fill: currentColor; }
 .deck-wrap .peek {
   position: absolute; left: 50%; top: 0; z-index: 0;

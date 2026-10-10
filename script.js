@@ -301,13 +301,21 @@ mascot.addEventListener('click', () => {
     speak(CLICK_LINES[clicks % CLICK_LINES.length]);
   }
 });
-let lastY = scrollY, leanTimer;
-addEventListener('scroll', () => {
-  const lean = Math.max(-18, Math.min(18, (scrollY - lastY) * 0.6));
-  lastY = scrollY;
-  mascot.style.rotate = `${lean}deg`;
-  clearTimeout(leanTimer);
-  leanTimer = setTimeout(() => { mascot.style.rotate = '0deg'; }, 120);
-}, { passive: true });
+// Lean into the scroll (mouse/trackpad only: on touch screens the scroll events are
+// too bursty and the lean just looked like jitter).
+if (matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  let lastY = scrollY, lean = 0, target = 0, settle;
+  addEventListener('scroll', () => {
+    target = Math.max(-14, Math.min(14, (scrollY - lastY) * 0.5));
+    lastY = scrollY;
+    clearTimeout(settle);
+    settle = setTimeout(() => { target = 0; }, 100);
+  }, { passive: true });
+  (function tick() {
+    lean += (target - lean) * 0.15;             // ease towards the target every frame
+    mascot.style.rotate = `${lean.toFixed(2)}deg`;
+    requestAnimationFrame(tick);
+  })();
+}
 
 document.getElementById('year').textContent = new Date().getFullYear();

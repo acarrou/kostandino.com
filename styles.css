@@ -435,7 +435,6 @@ h2 { font-size: clamp(2.6rem, 8vw, 5.5rem); }
   display: grid; justify-items: end; gap: .5rem;
   padding: 0; border: 0; background: none; color: var(--accent);
   cursor: pointer;
-  transition: rotate .5s cubic-bezier(.3, 1.6, .5, 1);
 }
 .mascot-body {
   display: grid; place-items: center;

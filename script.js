@@ -16,7 +16,9 @@ const SPOTIFY = 'https://open.spotify.com/track/';
 // TODO: Planet, Aurora and Demo My Heart use a Spotify search until Kosta sends their direct links.
 const SPOTIFY_SEARCH = 'https://open.spotify.com/search/';
 const RELEASES = [
-  { title: 'Willow', note: 'single · 2026', img: 'willow.jpg', isNew: true,
+  { title: 'Rabbit Hole', note: 'single · 2026', img: 'rabbit-hole.jpg', isNew: true,
+    links: { spotify: 'https://open.spotify.com/album/0LaRnvJMyPlszgSVt9wjqi' } },
+  { title: 'Willow', note: 'single · 2026', img: 'willow.jpg',
     links: { spotify: SPOTIFY + '4Q93FwXEhfIGorU4pDBz6H', apple: APPLE + 'willow-single/6794258295' } },
   { title: 'Way Back', note: 'single · 2025', img: 'way-back.jpg',
     links: { spotify: SPOTIFY + '5uOQFMkOszuv7YzCdc0JRe', apple: APPLE + 'way-back-single/1797192500' } },
@@ -139,7 +141,7 @@ window.onApplePreviews = (data) => {
 const jsonp = document.createElement('script');
 jsonp.src = `https://itunes.apple.com/lookup?id=${APPLE_ARTIST_ID}&entity=song&limit=200&callback=onApplePreviews`;
 document.head.append(jsonp);
-const appleId = (r) => r.links.apple.split('/').pop();
+const appleId = (r) => r.links.apple && r.links.apple.split('/').pop();
 function playRelease(r) {
   const url = previews[appleId(r)];
   if (!url) { openSheet(r); return; } // previews not loaded (offline?): show the links instead
@@ -163,7 +165,11 @@ audio.addEventListener('timeupdate', () => {
 scrubber.addEventListener('pointerdown', () => { scrubbing = true; });
 scrubber.addEventListener('input', () => {
   // dragging the scrubber on a song that is not loaded loads it first
-  if (!loaded) { loaded = RELEASES[current]; audio.src = previews[appleId(loaded)]; }
+  if (!loaded) {
+    const url = previews[appleId(RELEASES[current])];
+    if (!url) return; // no preview for this release: nothing to seek in
+    loaded = RELEASES[current]; audio.src = url;
+  }
   audio.currentTime = scrubber.value;
   timeNow.textContent = fmt(scrubber.value);
 });
@@ -181,7 +187,8 @@ function refreshPlayState() {
   caption.textContent = `${r.title} · ${r.note}`;
   if (loaded !== r) { scrubber.value = 0; scrubber.style.setProperty('--p', '0%'); timeNow.textContent = '0:00'; }
   document.querySelector('.preview-spotify').href = r.links.spotify;
-  document.querySelector('.preview-apple').href = r.links.apple;
+  document.querySelector('.preview-apple-wrap').hidden = !r.links.apple;
+  if (r.links.apple) document.querySelector('.preview-apple').href = r.links.apple;
 }
 
 // Release sheet

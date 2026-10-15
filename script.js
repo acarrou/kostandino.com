@@ -16,10 +16,11 @@ const SPOTIFY = 'https://open.spotify.com/track/';
 // TODO: Planet, Aurora and Demo My Heart use a Spotify search until Kosta sends their direct links.
 const SPOTIFY_SEARCH = 'https://open.spotify.com/search/';
 const RELEASES = [
+  // TODO: add `apple: APPLE + 'rabbit-hole-single/<id>'` once Apple Music has the song;
+  // the sampler then switches to Apple's clip on its own and the Apple button appears.
   { title: 'Rabbit Hole', note: 'single · 2026', img: 'rabbit-hole.jpg', isNew: true,
-    // Spotify's preview clip, used until Apple Music has the song
-    preview: 'https://p.scdn.co/mp3-preview/a7032db0771ee09a77021707879ac096ffdd8a94',
-    links: { spotify: 'https://open.spotify.com/album/0LaRnvJMyPlszgSVt9wjqi' } },
+    preview: 'https://p.scdn.co/mp3-preview/a7032db0771ee09a77021707879ac096ffdd8a94', // Spotify's clip
+    links: { spotify: SPOTIFY + '5kZXi9wU4c3ZZy9WUX2R01' } },
   { title: 'Willow', note: 'single · 2026', img: 'willow.jpg',
     links: { spotify: SPOTIFY + '4Q93FwXEhfIGorU4pDBz6H', apple: APPLE + 'willow-single/6794258295' } },
   { title: 'Way Back', note: 'single · 2025', img: 'way-back.jpg',
@@ -144,7 +145,8 @@ const jsonp = document.createElement('script');
 jsonp.src = `https://itunes.apple.com/lookup?id=${APPLE_ARTIST_ID}&entity=song&limit=200&callback=onApplePreviews`;
 document.head.append(jsonp);
 const appleId = (r) => r.links.apple && r.links.apple.split('/').pop();
-const previewFor = (r) => r.preview || previews[appleId(r)];
+// Apple's clip when the release is on Apple Music, otherwise the release's own `preview`
+const previewFor = (r) => previews[appleId(r)] || r.preview;
 function playRelease(r) {
   const url = previewFor(r);
   if (!url) { openSheet(r); return; } // previews not loaded (offline?): show the links instead

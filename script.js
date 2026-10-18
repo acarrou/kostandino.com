@@ -16,11 +16,8 @@ const SPOTIFY = 'https://open.spotify.com/track/';
 // TODO: Planet, Aurora and Demo My Heart use a Spotify search until Kosta sends their direct links.
 const SPOTIFY_SEARCH = 'https://open.spotify.com/search/';
 const RELEASES = [
-  // TODO: add `apple: APPLE + 'rabbit-hole-single/<id>'` once Apple Music has the song;
-  // the sampler then switches to Apple's clip on its own and the Apple button appears.
   { title: 'Rabbit Hole', note: 'single · 2026', img: 'rabbit-hole.jpg', isNew: true,
-    preview: 'https://p.scdn.co/mp3-preview/a7032db0771ee09a77021707879ac096ffdd8a94', // Spotify's clip
-    links: { spotify: SPOTIFY + '5kZXi9wU4c3ZZy9WUX2R01' } },
+    links: { spotify: SPOTIFY + '5kZXi9wU4c3ZZy9WUX2R01', apple: APPLE + 'rabbit-hole/6818716701' } },
   { title: 'Willow', note: 'single · 2026', img: 'willow.jpg',
     links: { spotify: SPOTIFY + '4Q93FwXEhfIGorU4pDBz6H', apple: APPLE + 'willow-single/6794258295' } },
   { title: 'Way Back', note: 'single · 2025', img: 'way-back.jpg',
@@ -125,7 +122,7 @@ showCard(0);
 // Play / pause. The 30-second previews come from Apple's public catalogue
 // (looked up by the release's Apple Music id), played in a plain audio element.
 // Apple collection id -> preview url (first track of an album). These were fetched
-// on 2026-10-06 and are refreshed at load time via JSONP below in case Apple moves them.
+// on 2026-10-17 and are refreshed at load time via JSONP below in case Apple moves them.
 const previews = {
   1568477594: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/30/a1/0e/30a10e80-fd2e-bed2-a7ec-3f82b6290e73/mzaf_3187424553767249747.plus.aac.p.m4a',
   1573282063: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview125/v4/88/6a/83/886a83f2-5322-2277-8979-802c9e0991ca/mzaf_6162233335309028096.plus.aac.p.m4a',
@@ -134,7 +131,8 @@ const previews = {
   1717760333: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview116/v4/9c/c6/8c/9cc68c61-5480-a2ef-eaec-b7e1d9863211/mzaf_12972068808863687508.plus.aac.p.m4a',
   1778623211: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/7f/28/15/7f2815c8-4b65-638f-0cdc-f557117ec271/mzaf_15933266566538594275.plus.aac.p.m4a',
   1797192500: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/ea/4e/ad/ea4ead7f-287a-d8cb-9390-eb4c0d5eb603/mzaf_7118763331381946350.plus.aac.p.m4a',
-  6794258295: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/47/7e/4e/477e4e8b-761e-ff64-d40c-e57542c32489/mzaf_6686217302876156328.plus.aac.p.m4a'
+  6794258295: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview221/v4/47/7e/4e/477e4e8b-761e-ff64-d40c-e57542c32489/mzaf_6686217302876156328.plus.aac.p.m4a',
+  6818716701: 'https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview211/v4/1b/ef/bf/1befbfbf-09fd-45ec-0cb9-fb623b6418be/mzaf_6432595708572334213.plus.aac.p.m4a'
 };
 window.onApplePreviews = (data) => {
   data.results.forEach((t) => {
